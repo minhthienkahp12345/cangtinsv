@@ -1,0 +1,61 @@
+@startuml QuyTrinh_BanHang_To_Be
+title SƠ ĐỒ QUY TRÌNH NGHIỆP VỤ BÁN HÀNG VÀ LẬP HÓA ĐƠN (TO-BE)
+
+|#E8F8F5|Sinh viên|
+|#FEF9E7|Nhân viên Căng tin (POS)|
+|#EBF5FB|Hệ thống Quản lý Căng tin|
+
+|Sinh viên|
+start
+:Xem thực đơn trực tuyến / tại quầy;
+:Lựa chọn món ăn và số lượng;
+:Yêu cầu đặt món với nhân viên;
+
+|Nhân viên Căng tin (POS)|
+:Mở giao diện bán hàng (POS);
+:Chọn các món ăn theo yêu cầu của Sinh viên;
+
+|Hệ thống Quản lý Căng tin|
+:Kiểm tra trạng thái món ăn (Còn hàng / Hết hàng);
+if (Còn món trong kho?) then (Có)
+  :Ghi nhận danh sách món vào giỏ hàng;
+else (Hết hàng)
+  :Thông báo món đã hết;
+  |Nhân viên Căng tin (POS)|
+  :Báo cho Sinh viên chọn món khác;
+  |Sinh viên|
+  :Đổi món ăn khác;
+  |Nhân viên Căng tin (POS)|
+  :Cập nhật lại giỏ hàng;
+endif
+
+|Hệ thống Quản lý Căng tin|
+:Tự động tính tổng tiền;
+if (Có chương trình khuyến mãi/giảm giá?) then (Có)
+  :Áp dụng giảm giá vào tổng tiền;
+endif
+:Tạo hóa đơn mới ở trạng thái "Chờ thanh toán";
+:Hiển thị tổng số tiền thanh toán;
+
+|Nhân viên Căng tin (POS)|
+:Thông báo số tiền cho Sinh viên;
+
+|Sinh viên|
+:Thực hiện thanh toán (Tiền mặt / Chuyển khoản);
+
+|Nhân viên Căng tin (POS)|
+:Thao tác xác nhận đã nhận đủ tiền;
+
+|Hệ thống Quản lý Căng tin|
+:Cập nhật trạng thái Hóa đơn -> "Đã thanh toán";
+:Trừ số lượng món ăn trong kho thực đơn;
+:Ghi nhận giao dịch vào Nhật ký bán hàng;
+:In/Hiển thị hóa đơn thanh toán;
+
+|Nhân viên Căng tin (POS)|
+:Giao đồ ăn và hóa đơn cho Sinh viên;
+
+|Sinh viên|
+:Nhận món ăn và rời quầy;
+stop
+@enduml
